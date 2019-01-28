@@ -1,6 +1,7 @@
 # express-jwt-jwks
 Simple JWT auth using JWKS key sets for Express.  Wraps express-jwt and jwks-rsa.  AWS Cognito compatible.
 
+Calls to JWKS are cached, and JWKS entries are associated to a JWT through the "kid" parameter in the JWT header.  Calls through the cache to the remote JWKS are rate limited to 5 req/min.
 
 ## Install
 
