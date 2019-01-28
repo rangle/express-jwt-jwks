@@ -15,15 +15,24 @@ to be used by later middleware for authorization and access control.
 
 ```javascript
 
+
+
 // Obtain JWT auth middleware, using a remote JWKS key set
 var SECURE = require('express-jwt-jwks')({
-    jwks : "https://.../.wellknown/jwks.json"
+    jwks : "https://....../.well-known/jwks.json"
 });
 
 
-// Add middleware to a route to protect it
-app.get("/protected", SECURE, (req, res, next) => {
-    res.status(200).send("Success!")
+// Express routes, the first is JWT secured, the second is open.
+
+router.get('/restricted', SECURE, (_, res) => {
+  res.send("Super secret data")
 })
+
+router.get('/open', (_, res) => {
+  res.send("Anyone is allowed to see this")
+})
+
+
 
 ```
